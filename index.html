@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<!-- Phần đầu -->
+
+<head>
+  <title>BEM</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="index.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<!-- Phần thân -->
+
+<body>
+  <!-- <div class="container">
+    <div class="toast toast--susscess">
+      <div class="toast__icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <div class="toast__content">
+        <h3 class="toast__title">Success</h3>
+        <p class="toast__msg">Máy tính đã kết nối Internet thành công!!</p>
+      </div>
+      <div class="toast__close">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+    </div>
+
+    <div class="toast toast--info">
+      <div class="toast__icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <div class="toast__content">
+        <h3 class="toast__title">Info</h3>
+        <p class="toast__msg">Máy tính đã kết nối Internet thành công!!</p>
+      </div>
+      <div class="toast__close">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+    </div>
+
+    <div class="toast toast--warning">
+      <div class="toast__icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <div class="toast__content">
+        <h3 class="toast__title">Warning</h3>
+        <p class="toast__msg">Máy tính đã kết nối Internet thành công!! Hãy nhấn vào nút X để tắt thôgn báo</p>
+      </div>
+      <div class="toast__close">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+    </div>
+
+    <div class="toast toast--error">
+      <div class="toast__icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <div class="toast__content">
+        <h3 class="toast__title">Error</h3>
+        <p class="toast__msg">Máy tính đã k</p>
+      </div>
+      <div class="toast__close">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+    </div>
+  </div> -->
+  <div class="container">
+    <div class="container-btn">
+      <button class="btn btn--success" onclick="showSuccessToast();">Success</button>
+      <button class="btn btn--danger" onclick="showWarningToast();">Danger</button>
+      <button class="btn btn--error" onclick="showErrorToast();">Error</button>
+    </div>
+    <div id="toast">
+
+    </div>
+  </div>
+  <script>
+    function toast({ title = '', msg = '', type = 'info', duration = 3000 }) {
+      const main = document.getElementById('toast')
+
+      if (main) {
+        const icons = {
+          success: 'fa-solid fa-circle-check',
+          info: 'fa-solid fa-circle-info',
+          warning: 'fa-solid fa-circle-exclamation',
+          error: 'fa-solid fa-circle-exclamation'
+        }
+        const icon = icons[type]
+        console.log(icon)
+        const delay = (duration / 1000).toFixed(2)
+        const toast = document.createElement('div')
+        const setTimeoutId = setTimeout(function () {
+          main.removeChild(toast)
+        }, duration + 1000)
+        toast.onclick = (e) => {
+          if (e.target.closest('.toast__close')) main.removeChild(toast)
+          clearTimeout(setTimeoutId)
+        }
+
+        toast.classList.add('toast', `toast--${type}`)
+        toast.style.animation = ` slideInleft ease 0.5s, fadeOut linear 1s ${delay}s forwards`;
+        toast.innerHTML = `
+        <div class="toast__icon">
+          <i class="${icon}"></i>
+        </div>
+        <div class="toast__content">
+          <h3 class="toast__title">${title}</h3>
+          <p class="toast__msg">${msg}</p>
+        </div>
+        <div class="toast__close">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+        `
+        main.appendChild(toast)
+
+      }
+    }
+
+    function showSuccessToast() {
+      toast({
+        title: 'Thành Công',
+        msg: 'Bạn đã đăng ký thành công !!!',
+        type: 'success',
+        duration: 1000
+      });
+    }
+    function showErrorToast() {
+      toast({
+        title: 'Thất Bại',
+        msg: 'Có lỗi xảy ra vui lòng nhập lại thông tin !!!',
+        type: 'error',
+        duration: 3000
+      });
+    }
+    function showWarningToast() {
+      toast({
+        title: 'Cảnh Báo',
+        msg: 'Bạn chưa điền đủ thông tin xin vui lòng xem lại!!!',
+        type: 'warning',
+        duration: 3000
+      });
+    }
+  </script>
+
+</body>
+
+</html>
